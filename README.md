@@ -1,12 +1,12 @@
 # Web Prospect Parser
 
-A Python 3+ console tool to scrape current flyers (`Prospekte`) from [prospektmaschine.de](https://www.prospektmaschine.de) for all store chains in any category. The output is saved as a JSON file with structured, consistent data.
+A Python 3+ console tool to scrape current flyers (`Prospekte`) from [prospektmaschine.de/hypermarkte/](https://www.prospektmaschine.de/hypermarkte/) for all store chains in the Hypermärkte category. The output is saved as a JSON file with structured, consistent data.
 
 ---
 
 ## Features
 
-- Scrapes all any store chains in the specified category.
+- Scrapes all any store chains in the Hypermärkte category (customizable).
 - Validates flyer dates and only keeps currently active flyers.
 - Outputs JSON with clean, standardized fields:
   - `title` – flyer title
