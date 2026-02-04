@@ -1,0 +1,10 @@
+[project]
+name = "web-prospect-parser"
+version = "0.1.0"
+dependencies = [
+    "beautifulsoup4",
+    "requests"
+]
+
+[project.scripts]
+proser = "prospect_parser.main:main"
