@@ -1,2 +1,0 @@
-[console_scripts]
-proser = prospect_parser.main:main
