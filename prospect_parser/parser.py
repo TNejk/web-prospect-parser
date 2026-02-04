@@ -28,14 +28,14 @@ class ProspectParser:
             new_dates.append(formated.strftime('%Y-%m-%d'))
         return new_dates
 
-    def _is_valid_prospect(self, dates: list[str]) -> bool:
-        current_date = datetime.today().strftime('%Y-%m-%d')
+    def _is_valid_prospect(self, dates: list[str],
+                           now: str) -> bool:
         start = dates[0]
         end = dates[1] if len(dates) > 1 else None
 
-        if start > current_date:
+        if start > now:
             return False
-        if end and end < current_date:
+        if end and end < now:
             return False
         return True
 
@@ -64,6 +64,7 @@ class ProspectParser:
             self.store_links.append((self.website + href, store))
 
     def _fetch_validate_store_prospects(self) -> None:
+        now = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         for link, store in self.store_links:
             prospects = self._fetch_content(link, class_filter='page-body')
             if not prospects:
@@ -71,37 +72,27 @@ class ProspectParser:
 
             for prospect in prospects.find_all(class_='brochure-thumb',
                                                name='div'):
-                prospect_data = prospect.find_all(['h2', 'img', 'span'])
                 title = prospect.find("h2")
                 image = prospect.find("img", src=True)
-                date_span = prospect.find("span", class_="hidden-sm")
+                date = prospect.find("span", class_="hidden-sm")
 
-                if any((title is None, image is None, date_span is None)):
+                if any((title is None, image is None, date is None)):
                     continue
 
-                temp_storage: Prospect = {'shop_name': store.strip()}
+                dates = self._reformat_dates(date.get_text())
+                if not self._is_valid_prospect(dates, now):
+                    continue
 
-                for data in prospect_data:
-                    if data.name == 'h2':
-                        temp_storage['title'] = data.get_text().strip()
-                    elif data.name == 'img':
-                        temp_storage['thumbnail'] = data['src']
-                    elif data.name == 'span' and 'hidden-sm' in data['class']:
-                        dates: list[str] = self._reformat_dates(data.get_text())
+                temp_storage: Prospect = {
+                    'shop_name': store.strip(),
+                    'title': title.get_text(strip=True),
+                    'thumbnail': image['src'],
+                    'valid_from': dates[0],
+                    'valid_to': dates[1] if len(dates) == 2 else None,
+                    'parsed_time': now
+                    }
 
-                        if self._is_valid_prospect(dates):
-                            temp_storage['valid_from'] = dates[0]
-                            if len(dates) == 2:
-                                temp_storage['valid_to'] = dates[1]
-                            else:
-                                temp_storage['valid_to'] = None
-                        else:
-                            break
-
-                if len(temp_storage) == 5:
-                    temp_storage['parsed_time'] = \
-                        datetime.today().strftime('%Y-%m-%d %H:%M:%S')
-                    self.prospects.append(temp_storage)
+                self.prospects.append(temp_storage)
 
     def fill_storage(self) -> None:
         self._get_store_links_from_website()
