@@ -64,7 +64,6 @@ class ProspectParser:
             self.store_links.append((self.website + href, store))
 
     def _fetch_validate_store_prospects(self) -> None:
-        now = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
         for link, store in self.store_links:
             prospects = self._fetch_content(link, class_filter='page-body')
             if not prospects:
@@ -80,6 +79,7 @@ class ProspectParser:
                     continue
 
                 dates = self._reformat_dates(date.get_text())
+                now = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
                 if not self._is_valid_prospect(dates, now):
                     continue
 
