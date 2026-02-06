@@ -24,7 +24,7 @@ A Python 3+ console tool to scrape current flyers (`Prospekte`) from [prospektma
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/web-prospect-parser.git
+git clone https://github.com/TNejk/web-prospect-parser.git
 cd web-prospect-parser
 ```
 
