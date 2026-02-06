@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+prospect_parser/Prospect.py
+prospect_parser/ProspectParser.py
+prospect_parser/__init__.py
+prospect_parser/main.py
+web_prospect_parser.egg-info/PKG-INFO
+web_prospect_parser.egg-info/SOURCES.txt
+web_prospect_parser.egg-info/dependency_links.txt
+web_prospect_parser.egg-info/entry_points.txt
+web_prospect_parser.egg-info/requires.txt
+web_prospect_parser.egg-info/top_level.txt
