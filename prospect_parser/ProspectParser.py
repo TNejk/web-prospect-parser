@@ -48,9 +48,9 @@ class ProspectParser:
         dates = self._extract_dates(date.get_text()) if date else []
 
         return Prospect(
-            store,
             title.get_text(strip=True) if title else None,
             src if isinstance(src, str) else None,
+            store,
             dates[0] if len(dates) > 0 else None,
             dates[1] if len(dates) > 1 else None,
             datetime.today()
