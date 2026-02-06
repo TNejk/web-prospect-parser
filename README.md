@@ -6,8 +6,8 @@ A Python 3+ console tool to scrape current flyers (`Prospekte`) from [prospektma
 
 ## Features
 
-- Scrapes all any store chains in the Hypermärkte category (customizable).
-- Validates flyer dates and only keeps currently active flyers.
+- Scrapes all store chains in the Hypermärkte category (customizable).
+- Validates flyer dates and stores them as objects.
 - Outputs JSON with clean, standardized fields:
   - `title` – flyer title
   - `thumbnail` – flyer image URL
