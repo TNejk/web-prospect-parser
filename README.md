@@ -34,6 +34,8 @@ cd web-prospect-parser
 pip install .
 ```
 
+---
+
 ## Usage
 
 Run the parser with default settings:
